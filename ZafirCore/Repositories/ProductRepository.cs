@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ZafirCore.Models;
+using Microsoft.EntityFrameworkCore;
+using AspNetCore_ProductCatalog_MVC.Models;
 
-namespace ZafirCore.Repositories
+namespace AspNetCore_ProductCatalog_MVC.Repositories
 {
     public class ProductRepository : IProductRepository
     {

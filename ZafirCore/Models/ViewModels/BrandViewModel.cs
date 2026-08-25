@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace ZafirCore.Models.ViewModels
+namespace AspNetCore_ProductCatalog_MVC.Models.ViewModels
 {
     public class BrandViewModel
     {

@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-namespace ZafirCore.Models
+namespace AspNetCore_ProductCatalog_MVC.Models
 {
     public class AppDbContext: DbContext
     {

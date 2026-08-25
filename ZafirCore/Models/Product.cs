@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace ZafirCore.Models
+namespace AspNetCore_ProductCatalog_MVC.Models
 {
     public class Product
     {

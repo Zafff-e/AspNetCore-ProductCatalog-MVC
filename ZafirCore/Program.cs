@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using ZafirCore.Models;
-using ZafirCore.Repositories;
+using AspNetCore_ProductCatalog_MVC.Models;
+using AspNetCore_ProductCatalog_MVC.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();

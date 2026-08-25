@@ -1,6 +1,6 @@
-﻿using ZafirCore.Models;
+using AspNetCore_ProductCatalog_MVC.Models;
 
-namespace ZafirCore.Repositories
+namespace AspNetCore_ProductCatalog_MVC.Repositories
 {
     public interface IProductRepository
     {

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ZafirCore.Controllers
+namespace AspNetCore_ProductCatalog_MVC.Controllers
 {
     public class HomeController : Controller
     {

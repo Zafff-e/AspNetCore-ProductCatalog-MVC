@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using ZafirCore.Models;
-using ZafirCore.Models.ViewModels;
-using ZafirCore.Repositories;
+using AspNetCore_ProductCatalog_MVC.Models;
+using AspNetCore_ProductCatalog_MVC.Models.ViewModels;
+using AspNetCore_ProductCatalog_MVC.Repositories;
 
-namespace ZafirCore.Controllers
+namespace AspNetCore_ProductCatalog_MVC.Controllers
 {
     public class ProductsController : Controller
     {

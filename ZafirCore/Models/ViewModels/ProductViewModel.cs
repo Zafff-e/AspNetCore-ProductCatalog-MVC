@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
-namespace ZafirCore.Models.ViewModels
+namespace AspNetCore_ProductCatalog_MVC.Models.ViewModels
 {
     public class ProductViewModel
     {
