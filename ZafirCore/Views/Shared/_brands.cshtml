@@ -1,0 +1,34 @@
+﻿@using ZafirCore.Models.ViewModels
+@model IList<BrandViewModel>
+
+<table class="table table-bordered" id="brandsTable">
+    <thead>
+        <tr>
+            <th>Brand Name</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="Brands[@i].BrandId" value="@Model[i].BrandId" />
+                        <input type="text" name="Brands[@i].BrandName" value="@Model[i].BrandName" class="form-control" />
+                        <span class="text-danger" data-valmsg-for="Brands[@i].BrandName" data-valmsg-replace="true"></span>
+                    </td>
+                    <td>
+                        <input type="text" name="Brands[@i].Stock" value="@Model[i].Stock" class="form-control" />
+                        <span class="text-danger" data-valmsg-for="Brands[@i].Stock" data-valmsg-replace="true"></span>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger removeBrandBtn">Remove</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

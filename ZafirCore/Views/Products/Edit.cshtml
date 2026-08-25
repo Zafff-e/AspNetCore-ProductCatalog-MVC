@@ -1,0 +1,171 @@
+﻿@using ZafirCore.Models.ViewModels
+@model ProductViewModel
+
+<h1>Edit Product</h1>
+
+<form id="editForm" method="post" asp-action="Edit" enctype="multipart/form-data">
+    <div class="row mb-5">
+        <div class="col-md-7">
+            <h4 class="mb-3">Product Info</h4>
+
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" name="OldImageUrl" value="@Model.ImageUrl" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ProductName" class="form-label fw-semibold"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ManufacturingDate" class="form-label fw-semibold"></label>
+                <input asp-for="ManufacturingDate" class="form-control" />
+                <span asp-validation-for="ManufacturingDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SerialNo" class="form-label fw-semibold"></label>
+                <input asp-for="SerialNo" class="form-control" />
+                <span asp-validation-for="SerialNo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CategoryId" class="form-label fw-semibold"></label>
+                <select class="form-select" asp-for="CategoryId"
+                        asp-items="@(new SelectList(Model.Categories, "CategoryId", "CategoryName"))">
+                    <option value="0">----- Select Category -----</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Price" class="form-label fw-semibold"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="IsAvailable" class="form-check-input" />
+                <label asp-for="IsAvailable" class="form-check-label fw-semibold"></label>
+            </div>
+
+            <div class="form-group mb-3">
+                <img id="imgPreview"
+                     src="~/images/@(string.IsNullOrEmpty(Model.ImageUrl) ? "noimage.png" : Model.ImageUrl)"
+                     class="img-thumbnail d-block mb-2" style="width: 90px; height: 90px;" />
+                <label asp-for="ProfileFile" class="form-label fw-semibold"></label>
+                <input type="file" accept="image/*" class="form-control" id="img"
+                       name="ProfileFile" onchange="showImagePreview(this)" />
+                <span asp-validation-for="ProfileFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="button" id="btnEdit" value="Save Changes" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <h4 class="mb-3">Brand Info (Detail)</h4>
+            <button type="button" class="btn btn-primary mb-3" onclick="AddBrand()">Add Brand</button>
+
+            <div id="brandContainer">
+                <partial name="_brands" model="Model.Brands" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+     
+        function showImagePreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);6
+            }
+        }
+ 
+        function AddBrand() {
+            var $tbody = $('#brandsTable tbody');
+            var index = $tbody.find('tr').length;
+
+            var htmlRow =
+                '<tr>' +
+                    '<td>' +
+                        '<input type="hidden" name="Brands[' + index + '].BrandId" value="0" />' +
+                        '<input type="text" name="Brands[' + index + '].BrandName" class="form-control" />' +
+                        '<span class="text-danger" data-valmsg-for="Brands[' + index + '].BrandName"></span>' +
+                    '</td>' +
+                    '<td>' +
+                        '<input type="text" name="Brands[' + index + '].Stock" class="form-control" value="0" />' +
+                        '<span class="text-danger" data-valmsg-for="Brands[' + index + '].Stock"></span>' +
+                    '</td>' +
+                    '<td>' +
+                        '<button type="button" class="btn btn-danger removeBrandBtn">Remove</button>' +
+                    '</td>' +
+                '</tr>';
+
+            $tbody.append(htmlRow);
+        }
+
+        function reIndexTableRows() {
+            $('#brandsTable tbody tr').each(function (rowIndex, trElement) {
+                $(trElement).find('input').each(function () {
+                    var n = $(this).attr('name');
+                    if (n) { $(this).attr('name', n.replace(/\[\d+\]/, '[' + rowIndex + ']')); }
+                });
+                $(trElement).find('span[data-valmsg-for]').each(function () {
+                    var v = $(this).attr('data-valmsg-for');
+                    if (v) { $(this).attr('data-valmsg-for', v.replace(/\[\d+\]/, '[' + rowIndex + ']')); }
+                });
+            });
+        }
+
+        
+
+        $(function () {
+
+            
+            $(document).on('click', '.removeBrandBtn', function () {
+                $(this).closest('tr').remove();
+                reIndexTableRows();
+            });
+
+            $('#btnEdit').on('click', function (e) {
+                e.preventDefault();
+
+                
+                $('span.text-danger').text('');
+
+                var formData = new FormData($('#editForm')[0]);
+
+                $.ajax({
+                    url: '@Url.Action("Edit", "Products")',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = response.redirectUrl;
+                        } else if (response.errors) {
+                            $.each(response.errors, function (index, item) {
+                                $('span[data-valmsg-for="' + item.field + '"]').text(item.error);
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error occurred while saving data: ' + error);
+                    }
+                });
+            });
+
+        });
+    </script>
+}

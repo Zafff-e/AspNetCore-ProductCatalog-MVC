@@ -1,0 +1,28 @@
+## Ignore Visual Studio & .NET build output directories
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+## Ignore Visual Studio temporary files, user settings, & cache
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.userlibraries
+
+## Ignore IDE specific directories
+.vscode/
+.idea/
+
+## Ignore NuGet packages
+*.nupkg
+packages/
+
+## Ignore log files & OS generated files
+*.log
+Thumbs.db
+Desktop.ini
