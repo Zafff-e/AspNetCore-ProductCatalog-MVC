@@ -5,6 +5,7 @@
 [Rr]elease/
 x64/
 x86/
+TestResults/
 
 ## Ignore Visual Studio temporary files, user settings, & cache
 .vs/
@@ -18,11 +19,13 @@ x86/
 .vscode/
 .idea/
 
-## Ignore NuGet packages
-*.nupkg
-packages/
-
-## Ignore log files & OS generated files
+## Ignore database and log files
+*.mdf
+*.ldf
 *.log
 Thumbs.db
 Desktop.ini
+
+## Ignore NuGet packages
+*.nupkg
+packages/
